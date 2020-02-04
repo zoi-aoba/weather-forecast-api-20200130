@@ -3,6 +3,7 @@ class Requester < ApplicationRecord
   require "json"
 
   def self.run
+    puts "Start Requesting"
     city_id = "1850147"
     app_id = "223343a8068a05c3d91e8494cb49101c"
     api_url = "https://api.openweathermap.org/data/2.5/forecast?id=#{city_id}&appid=#{app_id}"
