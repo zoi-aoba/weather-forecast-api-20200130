@@ -10,17 +10,16 @@ class Requester < ApplicationRecord
     response = JSON.parse(res.body)["list"]
 
     response.each do |data|
-      forecast_data = format_response(data)
-      if is_exsist?(data)
-        forecast = Forecast.find_by(year: data["year"], month: data["month"], day: data["day"], hour: data["hour"])
-        forecast.update(temperature: data["temperature"], weather: data["weather"])
+      if is_exsist?(format_response(data))
+        forecast = Forecast.find_by(year: forecast_data[:year], month: forecast_data[:month], day: forecast_data[:day], hour: forecast_data[:hour])
+        forecast.update(temperature: forecast_data[:temperature], weather: forecast_data[:weather])
       else
-        Forecast.create(year: forecast_data["year"],
-          month: forecast_data["month"],
-          day: forecast_data["day"],
-          hour: forecast_data["hour"],
-          temperature: forecast_data["temperature"],
-          weather: forecast_data["weather"]
+        Forecast.create(year: forecast_data[:year],
+          month: forecast_data[:month],
+          day: forecast_data[:day],
+          hour: forecast_data[:hour],
+          temperature: forecast_data[:temperature],
+          weather: forecast_data[:weather]
         )
         end
       end
@@ -38,6 +37,6 @@ class Requester < ApplicationRecord
   end
 
   def self.is_exsist?(data)
-    Forecast.find_by(year: data["year"], month: data["month"], day: data["day"], hour: data["hour"])
+    Forecast.find_by(year: data[:year], month: data[:month], day: data[:day], hour: data[:hour])
   end
 end
