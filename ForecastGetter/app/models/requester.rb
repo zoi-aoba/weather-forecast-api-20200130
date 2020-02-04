@@ -10,7 +10,8 @@ class Requester < ApplicationRecord
     response = JSON.parse(res.body)["list"]
 
     response.each do |data|
-      if is_exsist?(format_response(data))
+      forecast_data = format_response(data)
+      if is_exsist?(forecast_data)
         forecast = Forecast.find_by(year: forecast_data[:year], month: forecast_data[:month], day: forecast_data[:day], hour: forecast_data[:hour])
         forecast.update(temperature: forecast_data[:temperature], weather: forecast_data[:weather])
       else
