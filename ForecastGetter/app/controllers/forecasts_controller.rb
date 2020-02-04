@@ -1,8 +1,4 @@
 class ForecastsController < ApplicationController
-  def index
-    @forecasts = Forecast.all
-    render json: { status: 'SUCCESS', data: @forecasts}
-  end
 
   def today_forecast
     today = Time.now.to_s.split("-")
