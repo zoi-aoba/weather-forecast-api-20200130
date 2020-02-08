@@ -10,23 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_03_080554) do
+ActiveRecord::Schema.define(version: 2020_02_08_071725) do
 
   create_table "forecasts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "year"
-    t.integer "month"
-    t.integer "day"
-    t.integer "hour"
     t.float "temperature"
     t.string "weather"
+    t.datetime "date"
   end
 
   create_table "requesters", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "success"
+    t.string "name"
+    t.text "message"
+    t.text "backtrace"
   end
 
 end

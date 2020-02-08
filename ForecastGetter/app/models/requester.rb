@@ -4,27 +4,36 @@ class Requester < ApplicationRecord
 
   def self.run
     puts "Start Requesting"
-    city_id = "1850147"
-    app_id = "223343a8068a05c3d91e8494cb49101c"
-    api_url = "https://api.openweathermap.org/data/2.5/forecast?id=#{city_id}&appid=#{app_id}"
-    res = HTTPClient.get(api_url)
-    response = JSON.parse(res.body)["list"]
+    begin
+      city_id = "1850147"
+      app_id = "223343a8068a05c3d91e8494cb49101c"
+      api_url = "https://api.openweathermap.org/data/2.5/forecast?id=#{city_id}&appid=#{app_id}"
+      res = HTTPClient.get(api_url)
+      response = JSON.parse(res.body)["list"]
 
-    response.each do |data|
-      forecast_data = format_response(data)
-      if is_exsist?(forecast_data)
-        forecast = Forecast.find_by(year: forecast_data[:year], month: forecast_data[:month], day: forecast_data[:day], hour: forecast_data[:hour])
-        forecast.update(temperature: forecast_data[:temperature], weather: forecast_data[:weather])
-      else
-        Forecast.create(year: forecast_data[:year],
-          month: forecast_data[:month],
-          day: forecast_data[:day],
-          hour: forecast_data[:hour],
-          temperature: forecast_data[:temperature],
-          weather: forecast_data[:weather]
-        )
-        end
+      response.each do |data|
+        forecast_data = format_response(data)
+        if is_exsist?(forecast_data)
+          forecast = Forecast.find_by(year: forecast_data[:year], month: forecast_data[:month], day: forecast_data[:day], hour: forecast_data[:hour])
+          forecast.update(temperature: forecast_data[:temperature], weather: forecast_data[:weather])
+        else
+          Forecast.create(year: forecast_data[:year],
+            month: forecast_data[:month],
+            day: forecast_data[:day],
+            hour: forecast_data[:hour],
+            temperature: forecast_data[:temperature],
+            weather: forecast_data[:weather]
+          )
+          end
       end
+      Requester.create(success: true)
+    rescue => exception
+      Requester.create(success: false, name: exception.class, message: exception.message, backtrace: exception.backtrace)
+    end
+  end
+
+  def get_past_forecast
+
   end
 
   def self.format_response (data)
