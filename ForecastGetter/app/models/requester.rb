@@ -2,12 +2,12 @@ class Requester < ApplicationRecord
   require "httpclient"
   require "json"
 
+  @@app_id = "34ba6cc32f4168e39be785f092ef2114"
+  @@location = "35.41,139.45"
+
   def self.run
-    puts "Start Requesting"
     begin
-      app_id = "34ba6cc32f4168e39be785f092ef2114"
-      location = "35.41,139.45"
-      api_url = "https://api.darksky.net/forecast/#{app_id}/#{location}"
+      api_url = "https://api.darksky.net/forecast/#{@@app_id}/#{@@location}"
       res = HTTPClient.get(api_url)
       response = JSON.parse(res.body)["daily"]["data"].first
 
@@ -16,14 +16,19 @@ class Requester < ApplicationRecord
       highest_temperature = convert_to_celsius(response["temperatureHigh"])
       lowest_temperature = convert_to_celsius(response["temperatureLow"])
 
-      unless Forecast.find_by(date: date)
+      if Forecast.find_by(date: date) # 本番はifをunlessに変更すること
         forecast = Forecast.create(date: date, weather: weather, highest_temperature: highest_temperature, lowest_temperature: lowest_temperature)
+        Requester.create(success: true, forecast_id: forecast.id)
+      else
+        Requester.create(success: true)
       end
 
-      Requester.create(success: true, forecast_id: forecast.id)
     rescue => exception
       Requester.create(success: false, name: exception.class, message: exception.message, backtrace: exception.backtrace)
     end
+  end
+
+  def get_past_30days_climate
   end
 
   private
