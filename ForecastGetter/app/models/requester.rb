@@ -35,7 +35,7 @@ class Requester < ApplicationRecord
       api_url = "https://api.darksky.net/forecast/#{@@app_id}/#{@@location},#{time}"
       responses = JSON.parse(HTTPClient.get(api_url).body)["daily"]["data"].first
   
-      date = Time.at(responses["time"])
+      date = Time.at(responses["time"]).to_s.split(" ").first
       weather = responses["icon"]
       highest_temperature = convert_to_celsius(responses["temperatureHigh"])
       lowest_temperature = convert_to_celsius(responses["temperatureLow"])
