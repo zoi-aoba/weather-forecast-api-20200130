@@ -29,6 +29,7 @@ class Requester < ApplicationRecord
   end
 
   def self.past
+    begin
     (0..5).each do |number|
       time = Time.parse((Date.today - number).to_s).to_i
       api_url = "https://api.darksky.net/forecast/#{@@app_id}/#{@@location},#{time}"
@@ -36,10 +37,16 @@ class Requester < ApplicationRecord
   
       date = Time.at(responses["time"])
       weather = responses["icon"]
-      highest_temperature = responses["temperatureHigh"]
-      lowest_temperature = responses["temperatureLow"]
-      
-      ObservedWeather.create(date: date, weather: weather, highest_temperature: highest_temperature, lowest_temperature: lowest_temperature)
+      highest_temperature = convert_to_celsius(responses["temperatureHigh"])
+      lowest_temperature = convert_to_celsius(responses["temperatureLow"])
+
+      unless ObservedWeather.find_by(date: date)
+        observed_weather = ObservedWeather.create(date: date, weather: weather, highest_temperature: highest_temperature, lowest_temperature: lowest_temperature)
+        Requester.create(success: true, observed_weather_id: observed_weather.id)
+      end
+      Requester.create(success: true)
+      rescue => exception
+        Requester.create(success: false, name: exception.class, message: exception.message, backtrace: exception.backtrace)
     end
   end
 
