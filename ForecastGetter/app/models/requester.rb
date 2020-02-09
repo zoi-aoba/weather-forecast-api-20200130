@@ -1,6 +1,7 @@
 class Requester < ApplicationRecord
   require "httpclient"
   require "json"
+  require "date"
 
   @@app_id = "34ba6cc32f4168e39be785f092ef2114"
   @@location = "35.41,139.45"
@@ -27,7 +28,19 @@ class Requester < ApplicationRecord
     end
   end
 
-  def get_past_30days_climate
+  def self.past
+    (0..5).each do |number|
+      time = Time.parse((Date.today - number).to_s).to_i
+      api_url = "https://api.darksky.net/forecast/#{@@app_id}/#{@@location},#{time}"
+      responses = JSON.parse(HTTPClient.get(api_url).body)["daily"]["data"].first
+  
+      date = Time.at(responses["time"])
+      weather = responses["icon"]
+      highest_temperature = responses["temperatureHigh"]
+      lowest_temperature = responses["temperatureLow"]
+      
+      ObservedWeather.create(date: date, weather: weather, highest_temperature: highest_temperature, lowest_temperature: lowest_temperature)
+    end
   end
 
   private
