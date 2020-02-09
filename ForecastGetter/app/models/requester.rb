@@ -8,8 +8,7 @@ class Requester < ApplicationRecord
   def self.run
     begin
       api_url = "https://api.darksky.net/forecast/#{@@app_id}/#{@@location}"
-      res = HTTPClient.get(api_url)
-      response = JSON.parse(res.body)["daily"]["data"].first
+      response = JSON.parse(HTTPClient.get(api_url).body)["daily"]["data"].first
 
       date = Time.at(response["time"]).to_s.split(" ").first
       weather = response["icon"]
