@@ -8,14 +8,14 @@ class Requester < ApplicationRecord
   def self.run
     begin
       api_url = "https://api.darksky.net/forecast/#{@@app_id}/#{@@location}"
-      response = JSON.parse(HTTPClient.get(api_url).body)["daily"]["data"].first
+      response = JSON.parse(HTTPClient.get(api_url).body)["daily"]["data"][1]
 
       date = Time.at(response["time"]).to_s.split(" ").first
       weather = response["icon"]
       highest_temperature = convert_to_celsius(response["temperatureHigh"])
       lowest_temperature = convert_to_celsius(response["temperatureLow"])
 
-      if Forecast.find_by(date: date) # 本番はifをunlessに変更すること
+      unless Forecast.find_by(date: date)
         forecast = Forecast.create(date: date, weather: weather, highest_temperature: highest_temperature, lowest_temperature: lowest_temperature)
         Requester.create(success: true, forecast_id: forecast.id)
       else

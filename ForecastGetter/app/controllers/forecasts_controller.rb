@@ -1,8 +1,10 @@
 class ForecastsController < ApplicationController
 
+  require "date"
+
   def tomorrow_forecast
-    today = Time.now.to_s.split(" ").first
-    @forecast = Forecast.find_by(date: today)
+    tomorrow = Date.today + 1
+    @forecast = Forecast.find_by(date: tomorrow)
     render json: { status: 'SUCCESS', data: @forecast }
   end
 end
