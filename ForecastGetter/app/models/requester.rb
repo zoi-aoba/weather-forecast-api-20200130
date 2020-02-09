@@ -45,8 +45,9 @@ class Requester < ApplicationRecord
         Requester.create(success: true, observed_weather_id: observed_weather.id)
       end
       Requester.create(success: true)
-      rescue => exception
-        Requester.create(success: false, name: exception.class, message: exception.message, backtrace: exception.backtrace)
+    end
+    rescue => exception
+      Requester.create(success: false, name: exception.class, message: exception.message, backtrace: exception.backtrace)
     end
   end
 
