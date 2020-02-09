@@ -1,0 +1,2 @@
+class ObservedWeather < ApplicationRecord
+end

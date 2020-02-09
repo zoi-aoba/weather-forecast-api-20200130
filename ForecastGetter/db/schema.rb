@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_09_065930) do
+ActiveRecord::Schema.define(version: 2020_02_09_125548) do
 
   create_table "forecasts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -19,6 +19,15 @@ ActiveRecord::Schema.define(version: 2020_02_09_065930) do
     t.datetime "date"
     t.float "lowest_temperature"
     t.float "highest_temperature"
+  end
+
+  create_table "observed_weathers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "weather"
+    t.datetime "date"
+    t.float "highest_temperature"
+    t.float "lowest_temperature"
   end
 
   create_table "requesters", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
