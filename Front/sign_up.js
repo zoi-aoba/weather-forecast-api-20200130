@@ -26,3 +26,8 @@ btn.addEventListener('click', () => {
       document.getElementById("password").value = "";
   });
 })
+
+window.sign_in = () => {
+  window.location.href = 'sign_in.html';
+
+}
