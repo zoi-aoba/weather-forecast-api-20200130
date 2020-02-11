@@ -3,11 +3,21 @@
 <head>
   <meta charset="utf-8">
   <title>Chat App</title>
-  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
 </head>
 <body>
   ログイン
-  <div id="firebaseui-auth-container"></div>
+  <div>
+    <div>Email</div>
+    <input id="email" type="text">
+  </div>
+  
+  <div>
+    <div>パスワード</div>
+    <input id="password" type="password">
+  </div>
+  <input id="submit" type="submit" value="ログイン">
+  
+  
   <!-- The core Firebase JS SDK is always required and must be listed first -->
 <!-- The core Firebase JS SDK is always required and must be listed first -->
 <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-app.js"></script>
@@ -19,27 +29,5 @@
      https://firebase.google.com/docs/web/setup#available-libraries -->
 
 <script src="log_in.js"></script>
-<script>
-  //----------------------------------------------
-  // Firebase UIの設定
-  //----------------------------------------------
-  var uiConfig = {
-      // ログイン完了時のリダイレクト先
-      signInSuccessUrl: 'index.html',
-
-      // 利用する認証機能
-      signInOptions: [
-        firebase.auth.GithubAuthProvider.PROVIDER_ID
-      ],
-
-      // 利用規約のURL(任意で設定)
-      tosUrl: 'http://example.com/kiyaku/',
-      // プライバシーポリシーのURL(任意で設定)
-      privacyPolicyUrl: 'https://miku3.net/privacy.html'
-    };
-
-    var ui = new firebaseui.auth.AuthUI(firebase.auth());
-    ui.start('#firebaseui-auth-container', uiConfig);
-</script>
 </body>
 </html>

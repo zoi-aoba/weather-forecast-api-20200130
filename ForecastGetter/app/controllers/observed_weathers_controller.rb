@@ -5,7 +5,8 @@ class ObservedWeathersController < ApplicationController
     @observed_weathers = Hash.new
     (1..30).each do |number|
       date = Date.today - number
-      @observed_weathers[date] = ObservedWeather.find_by(date: date) if ObservedWeather.exists?(date: date)
+      weathers = ObservedWeather.find_by(date: date)
+      @observed_weathers[date] = weathers if weathers
     end
     render json: { status: 'SUCCESS', data: @observed_weathers }
   end
