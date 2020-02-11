@@ -19,6 +19,8 @@ class Requester < ApplicationRecord
 
         forecast = Forecast.create(date: date, weather: weather, highest_temperature: highest_temperature, lowest_temperature: lowest_temperature)
         Requester.create(success: true, forecast_id: forecast.id)
+      else
+        Requester.create(success: true)
       end
     rescue => exception
       Requester.create(success: false, name: exception.class, message: exception.message, backtrace: exception.backtrace)
@@ -41,6 +43,8 @@ class Requester < ApplicationRecord
       
         observed_weather = ObservedWeather.create(date: date, weather: weather, highest_temperature: highest_temperature, lowest_temperature: lowest_temperature)
         Requester.create(success: true, observed_weather_id: observed_weather.id)
+      else
+        Requester.create(success: true)
       end
     end
     rescue => exception
@@ -49,7 +53,6 @@ class Requester < ApplicationRecord
   end
 
   private
-
   def self.convert_to_celsius(temperature)
     ((temperature - 32) / 1.8).round(1)
   end
