@@ -8,21 +8,22 @@ var firebaseConfig = {
   appId: "1:605379077010:web:9f67306fd37f96d4bdd74b"
 };
 
-firebase.initializeApp(firebaseConfig);
+function initApp() {
+  firebase.initializeApp(firebaseConfig);
 
-firebase.auth().onAuthStateChanged((user) => {
-  if (user) {
-    // User is signed in.
-    var displayName = user.displayName;
-    var email = user.email;
-    var emailVerified = user.emailVerified;
-    var photoURL = user.photoURL;
-    var isAnonymous = user.isAnonymous;
-    var uid = user.uid;
-    var providerData = user.providerData;
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      var email = user.email;
+      var uid = user.uid;
 
-    console.log(displayName);
-  } else {
-    console.log("ログインできていません");
-  }
-});
+      console.log(email);
+    } else {
+      console.log("ログインできていません");
+      window.location.href = 'sign_up.html';
+    }
+  });
+}
+
+window.onload = function() {
+  initApp();
+};
