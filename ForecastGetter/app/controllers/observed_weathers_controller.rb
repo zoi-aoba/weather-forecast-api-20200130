@@ -2,11 +2,11 @@ class ObservedWeathersController < ApplicationController
   require "date"
 
   def observed_weather
-    #いい感じに書き換えられる　範囲指定
+    # 範囲設定をいい感じに書き換える
     @observed_weathers = []
-    (1..3).each do |number|
+    (1..30).each do |number|
       date = Date.today
-      @observed_weathers.push(ObservedWeather.find_by(date: date))
+      @observed_weathers.push(ObservedWeather.find_by(date: date)) if ObservedWeather.find_by(date: date).exsist?
     end
     render json: { status: 'SUCCESS', data: @observed_weathers }
   end
