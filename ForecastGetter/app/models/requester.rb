@@ -8,39 +8,37 @@ class Requester < ApplicationRecord
 
   def self.run
     begin
-      api_url = "https://api.darksky.net/forecast/#{@@app_id}/#{@@location}"
-      response = JSON.parse(HTTPClient.get(api_url).body)["daily"]["data"][1]
+      date = Date.today + 1
+      unless Forecast.exsist?(date: date)
+        api_url = "https://api.darksky.net/forecast/#{@@app_id}/#{@@location}"
+        response = JSON.parse(HTTPClient.get(api_url).body)["daily"]["data"][1]
+        date = Time.at(response["time"]).to_s.split(" ").first
+        weather = response["icon"]
+        highest_temperature = convert_to_celsius(response["temperatureHigh"])
+        lowest_temperature = convert_to_celsius(response["temperatureLow"])
 
-      date = Time.at(response["time"]).to_s.split(" ").first
-      weather = response["icon"]
-      highest_temperature = convert_to_celsius(response["temperatureHigh"])
-      lowest_temperature = convert_to_celsius(response["temperatureLow"])
-
-      unless Forecast.find_by(date: date)
         forecast = Forecast.create(date: date, weather: weather, highest_temperature: highest_temperature, lowest_temperature: lowest_temperature)
         Requester.create(success: true, forecast_id: forecast.id)
-      else
-        Requester.create(success: true)
       end
-
     rescue => exception
       Requester.create(success: false, name: exception.class, message: exception.message, backtrace: exception.backtrace)
     end
   end
 
-  def self.past
+  def self.get_observed_weather
     begin
-    (0..5).each do |number|
+    (1..30).each do |number|
       time = Time.parse((Date.today - number).to_s).to_i
-      api_url = "https://api.darksky.net/forecast/#{@@app_id}/#{@@location},#{time}"
-      responses = JSON.parse(HTTPClient.get(api_url).body)["daily"]["data"].first
-  
-      date = Time.at(responses["time"]).to_s.split(" ").first
-      weather = responses["icon"]
-      highest_temperature = convert_to_celsius(responses["temperatureHigh"])
-      lowest_temperature = convert_to_celsius(responses["temperatureLow"])
 
-      unless ObservedWeather.find_by(date: date)
+      unless ObservedWeather.exsist?(date: time)
+        api_url = "https://api.darksky.net/forecast/#{@@app_id}/#{@@location},#{time}"
+        responses = JSON.parse(HTTPClient.get(api_url).body)["daily"]["data"].first
+    
+        date = Time.at(responses["time"]).to_s.split(" ").first
+        weather = responses["icon"]
+        highest_temperature = convert_to_celsius(responses["temperatureHigh"])
+        lowest_temperature = convert_to_celsius(responses["temperatureLow"])
+      
         observed_weather = ObservedWeather.create(date: date, weather: weather, highest_temperature: highest_temperature, lowest_temperature: lowest_temperature)
         Requester.create(success: true, observed_weather_id: observed_weather.id)
       end

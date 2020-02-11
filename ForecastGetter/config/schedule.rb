@@ -3,5 +3,4 @@ set :output, 'log/cron.log'
 
 every 1.minute do
   command "rake forecast_getter:run"
-  command "ls"
 end

@@ -1,7 +1,8 @@
 class ObservedWeathersController < ApplicationController
   require "date"
 
-  def past
+  def observed_weather
+    #いい感じに書き換えられる　範囲指定
     @observed_weathers = []
     (1..3).each do |number|
       date = Date.today
