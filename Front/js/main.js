@@ -33,14 +33,18 @@ window.logout = () => {
 new Vue({
   el: "#app",
   data: {
-
+    weather: "",
+    highestTemperature: "",
+    lowestTemperature: "",
   },
   methods: {
     getForecast: () => {
       axios.get(forecast_url)
         .then((response) => {
-          console.log(response.data);
-          // ここでデータの書き換えを行う
+          document.getElementById("weather").innerText = response.data.data.weather;
+          document.getElementById("highest_temperature").innerText = response.data.data.highest_temperature;
+          document.getElementById("lowest_temperature").innerText = response.data.data.lowest_temperature;
+          document.getElementById("date").innerText = response.data.data.date;
         })
         .catch((error) => {
           console.log(error);
