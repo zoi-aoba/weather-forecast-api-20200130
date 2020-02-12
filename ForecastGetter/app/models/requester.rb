@@ -6,6 +6,7 @@ class Requester < ApplicationRecord
   @@app_id = "34ba6cc32f4168e39be785f092ef2114"
   @@location = "35.41,139.45"
 
+  # レスポンスのstatusが異常だった場合の処理が必要
   def self.run
     begin
       date = Date.today + 1
@@ -27,6 +28,7 @@ class Requester < ApplicationRecord
     end
   end
 
+  # レスポンスのstatusが異常だった時の処理が必要
   def self.get_observed_weather
     begin
     (1..30).each do |number|

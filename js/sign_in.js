@@ -9,10 +9,8 @@ var firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-
-var btn = document.getElementById('submit');
  
-btn.addEventListener('click', () => {
+document.getElementById('submit').addEventListener('click', () => {
   email = document.getElementById("email").value;
   password = document.getElementById("password").value;
 
@@ -21,9 +19,12 @@ btn.addEventListener('click', () => {
       window.location.href = 'index.html';
     })
     .catch((error) => {
-      var errorMessage = error.message;
-      alert(errorMessage);
+      alert(error.message);
       document.getElementById("password").value = "";
     });
-  
 })
+
+window.sign_in = () => {
+  window.location.href = 'sign_up.html';
+
+}
