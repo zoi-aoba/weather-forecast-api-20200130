@@ -36,6 +36,9 @@ new Vue({
     weather: "",
     highestTemperature: "",
     lowestTemperature: "",
+    year: "",
+    month: "",
+    day: ""
   },
   methods: {
     getForecast: () => {
@@ -45,6 +48,9 @@ new Vue({
           document.getElementById("highest_temperature").innerText = response.data.data.highest_temperature;
           document.getElementById("lowest_temperature").innerText = response.data.data.lowest_temperature;
           document.getElementById("date").innerText = response.data.data.date;
+          this.year = response.data.data.date.substr(0, 4);
+          this.month = response.data.data.date.substr(5, 2);
+          this.day = response.data.data.date.substr(8, 2);
         })
         .catch((error) => {
           console.log(error);
