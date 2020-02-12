@@ -9,14 +9,12 @@ var firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
+let forecast_url = "http://localhost:3000/tommorow_forecast";
   
 function initApp() {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       var email = user.email;
-      var uid = user.uid;
-
-      console.log(email);
       document.getElementById("email").innerText = email;
     } else {
       window.location.href = 'sign_in.html';
@@ -32,16 +30,17 @@ window.logout = () => {
   firebase.auth().signOut();
 }
 
-var vm = new Vue({
+new Vue({
   el: "#app",
   data: {
 
   },
   methods: {
-    getForecast: function () {
-      axios.get("http://localhost:3000/tommorow_forecast")
+    getForecast: () => {
+      axios.get(forecast_url)
         .then((response) => {
           console.log(response.data);
+          // ここでデータの書き換えを行う
         })
         .catch((error) => {
           console.log(error);
