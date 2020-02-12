@@ -31,6 +31,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'httpclient'
 gem 'rb-readline'
 gem 'whenever'
+gem "rack-cors"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -40,7 +41,6 @@ group :development, :test do
   gem 'rails-controller-testing'
   gem 'guard'
   gem 'guard-rspec', require: false
-  gem 'webpacker', github: "rails/webpacker"
 end
 
 group :development do

@@ -32,3 +32,20 @@ window.logout = () => {
   firebase.auth().signOut();
 }
 
+var vm = new Vue({
+  el: "#app",
+  data: {
+
+  },
+  methods: {
+    getForecast: function () {
+      axios.get("http://localhost:3000/tommorow_forecast")
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+      })
+    }
+  }
+});
