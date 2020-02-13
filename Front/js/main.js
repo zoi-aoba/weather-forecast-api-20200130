@@ -11,7 +11,7 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 new Vue({
-  el: "#app",
+  el: "#forecast",
   data: {
     weather: null,
     highestTemperature: null,
@@ -35,6 +35,7 @@ new Vue({
     })
     .catch((error) => {
       console.log(error);
+      alert(error);
     })
 
     firebase.auth().onAuthStateChanged((user) => {
@@ -53,6 +54,7 @@ new Vue({
         })
         .catch((error) => {
           console.log(error);
+          alert(error);
       })
     },
     logout: function () {
