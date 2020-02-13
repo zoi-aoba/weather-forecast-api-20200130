@@ -30,9 +30,9 @@ class Requester < ApplicationRecord
 
   def self.get_observed_weather
     begin
-    (1..30).each do |number|
-      unless ObservedWeather.exists?(date: Date.today - number)
-        time = Time.parse((Date.today - number).to_s).to_i
+    (1..30).each do |reverse_days|
+      unless ObservedWeather.exists?(date: Date.today - reverse_days)
+        time = Time.parse((Date.today - reverse_days).to_s).to_i
         api_url = "https://api.darksky.net/forecast/#{@@app_id}/#{@@location},#{time}"
         response = HTTPClient.get(api_url)
         raise "The Response status is not 200" unless response.status == 200
