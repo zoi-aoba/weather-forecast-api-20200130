@@ -1,0 +1,9 @@
+.content {
+  float: left; 
+  margin: 10px 1%; 
+  width: 31%;
+}
+
+.contentText {
+  font-size: 25px;
+}

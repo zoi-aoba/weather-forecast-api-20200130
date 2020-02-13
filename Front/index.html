@@ -3,6 +3,7 @@
   <head>
     <title>天気予報</title>
     <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="style/styles.css" />
   </head>
   <body>
   <div id="app">
@@ -14,17 +15,17 @@
       <div id="forecast" style="text-align: center;">
         <div id="date"></div>
         <div id="forecat_contents">
-          <div style="float: left; margin: 10px 1%; width: 30%">
+          <div class="content">
             <h1>天気</h1>
-            <div id="weather" style="font-size: 25px;">{{ weather }}</div>
+            <div id="weather" class="contentText">{{ weather }}</div>
           </div>
-          <div style="float: left; margin: 10px 1%; width: 30%;">
+          <div class="content">
             <h1>最高気温</h1>
-            <div id="highest_temperature" style="font-size: 25px;">{{ highestTemperature }}℃</div>
+            <div id="highest_temperature" class="contentText">{{ highestTemperature }}℃</div>
           </div>
-          <div style="float: left; margin: 10px 1%; width: 30%;">
+          <div class="content">
             <h1>最低気温</h1>
-            <div id="lowest_temperature" style="font-size: 25px;">{{ lowestTemperature }}℃</div>
+            <div id="lowest_temperature" class="contentText">{{ lowestTemperature }}℃</div>
           </div>
         </div>
       </div>
@@ -33,17 +34,17 @@
         <input type="date"></input>
         <div id="date"></div>
         <div id="forecat_contents">
-          <div style="float: left; margin: 10px 1%; width: 30%">
+          <div class="content">
             <h1>天気</h1>
             <div id="weather" style="font-size: 25px;">{{ weather }}</div>
           </div>
-          <div style="float: left; margin: 10px 1%; width: 30%;">
+          <div class="content">
             <h1>最高気温</h1>
-            <div id="highest_temperature" style="font-size: 25px;">{{ highestTemperature }}℃</div>
+            <div id="highest_temperature" class="contentText">{{ highestTemperature }}℃</div>
           </div>
-          <div style="float: left; margin: 10px 1%; width: 30%;">
+          <div class="content">
             <h1>最低気温</h1>
-            <div id="lowest_temperature" style="font-size: 25px;">{{ lowestTemperature }}℃</div>
+            <div id="lowest_temperature" class="contentText">{{ lowestTemperature }}℃</div>
           </div>
         </div>
       </div>
