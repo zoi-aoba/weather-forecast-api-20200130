@@ -6,15 +6,14 @@
     <link rel="stylesheet" type="text/css" href="style/styles.css" />
   </head>
   <body>
-  <div id="app">
-    <div id="titile" style="text-align: center;">
-      <h1 id="date">{{ year }}年{{ month }}月{{ day }}日</h1>
-      <div id="email">{{ email }}</div>
-      <input type="button" value="ログアウト" id="logout" v-on:click="logout"></input>
-    </div>
-      <div id="forecast" style="text-align: center;">
-        <div id="date"></div>
-        <div id="forecat_contents">
+    <div id="app">
+
+      <div style="text-align: center;">
+        <h1 id="date">{{ year }}年{{ month }}月{{ day }}日</h1>
+        <div id="email">{{ email }}</div>
+        <input type="button" value="ログアウト" id="logout" v-on:click="logout"></input>
+      </div>
+      <div style="text-align: center;">
           <div class="content">
             <h1>天気</h1>
             <div id="weather" class="contentText">{{ weather }}</div>
@@ -27,13 +26,11 @@
             <h1>最低気温</h1>
             <div id="lowest_temperature" class="contentText">{{ lowestTemperature }}℃</div>
           </div>
-        </div>
       </div>
+
       <div style="clear: both; text-align: center;">
         <h1>過去の天気</h1>
         <input type="date"></input>
-        <div id="date"></div>
-        <div id="forecat_contents">
           <div class="content">
             <h1>天気</h1>
             <div id="weather" style="font-size: 25px;">{{ weather }}</div>
@@ -46,13 +43,13 @@
             <h1>最低気温</h1>
             <div id="lowest_temperature" class="contentText">{{ lowestTemperature }}℃</div>
           </div>
-        </div>
       </div>
-  </div>
-  <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-auth.js"></script>
-  <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script src="js/main.js"></script>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-auth.js"></script>
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="js/main.js"></script>
   </body>
 </html>
