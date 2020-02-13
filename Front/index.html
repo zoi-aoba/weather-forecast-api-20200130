@@ -28,28 +28,30 @@
           </div>
       </div>
 
-      <div style="clear: both; text-align: center;">
+      <div style="text-align: center; margin-top: 100px;">
         <h1>過去の天気</h1>
-        <input type="date"></input>
-          <div class="content">
-            <h1>天気</h1>
-            <div id="weather" style="font-size: 25px;">{{ weather }}</div>
-          </div>
-          <div class="content">
-            <h1>最高気温</h1>
-            <div id="highest_temperature" class="contentText">{{ highestTemperature }}℃</div>
-          </div>
-          <div class="content">
-            <h1>最低気温</h1>
-            <div id="lowest_temperature" class="contentText">{{ lowestTemperature }}℃</div>
-          </div>
+        <div style="text-align: center;">
+            <input type="date"></input>
+        </div>
+        <div class="content">
+          <h1>天気</h1>
+          <div id="weather" class="contentText">{{ weather }}</div>
+        </div>
+        <div class="content">
+          <h1>最高気温</h1>
+          <div id="highest_temperature" class="contentText">{{ highestTemperature }}℃</div>
+        </div>
+        <div class="content">
+          <h1>最低気温</h1>
+          <div id="lowest_temperature" class="contentText">{{ lowestTemperature }}℃</div>
+        </div>
       </div>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-auth.js"></script>
-    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>
