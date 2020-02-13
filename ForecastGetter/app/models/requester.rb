@@ -9,8 +9,7 @@ class Requester < ApplicationRecord
   # レスポンスのstatusが異常だった場合の処理が必要
   def self.run
     begin
-      date = Date.today + 1
-      unless Forecast.exists?(date: date)
+      unless Forecast.exists?(date: Date.today + 1)
         api_url = "https://api.darksky.net/forecast/#{@@app_id}/#{@@location}"
         response = JSON.parse(HTTPClient.get(api_url).body)["daily"]["data"][1]
         date = Time.at(response["time"]).to_s.split(" ").first
@@ -32,9 +31,8 @@ class Requester < ApplicationRecord
   def self.get_observed_weather
     begin
     (1..30).each do |number|
-      time = Time.parse((Date.today - number).to_s).to_i
-
       unless ObservedWeather.exists?(date: Date.today - number)
+        time = Time.parse((Date.today - number).to_s).to_i
         api_url = "https://api.darksky.net/forecast/#{@@app_id}/#{@@location},#{time}"
         responses = JSON.parse(HTTPClient.get(api_url).body)["daily"]["data"].first
     
