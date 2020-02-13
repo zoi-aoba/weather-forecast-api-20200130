@@ -36,7 +36,7 @@ class Requester < ApplicationRecord
         api_url = "https://api.darksky.net/forecast/#{@@app_id}/#{@@location},#{time}"
         response = HTTPClient.get(api_url)
         raise "The Response status is not 200" unless response.status == 200
-        response = JSON.parse(HTTPClient.get(api_url).body)["daily"]["data"].first
+        response = JSON.parse(response.body)["daily"]["data"].first
         date = Time.at(response["time"]).to_s.split(" ").first
         weather = response["icon"]
         highest_temperature = convert_to_celsius(response["temperatureHigh"])
