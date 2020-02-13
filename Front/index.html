@@ -6,32 +6,31 @@
   </head>
   <body>
   <div id="app">
-  <div id="titile" style="text-align: center;">
-    <h1 id="date">{{ year }}</h1>
-    <div id="email"></div>
-    <button id="logout" onclick="logout()">ログアウト</button>
-  </div>
-  <div>
-    <div id="forecast" style="text-align: center;">
-      <div id="date"></div>
-      <div id="forecat_contents">
-        <div style="float: left; margin: 10px 1%; width: 30%">
-          <h1>天気</h1>
-          <div id="weather" style="font-size: 25px;">晴れ</div>
-        </div>
-        <div style="float: left; margin: 10px 1%; width: 30%;">
-          <h1>最高気温</h1>
-          <div id="highest_temperature" style="font-size: 25px;">20℃</div>
-        </div>
-        <div style="float: left; margin: 10px 1%; width: 30%;">
-          <h1>最低気温</h1>
-          <div id="lowest_temperature" style="font-size: 25px;">10℃</div>
+    <div id="titile" style="text-align: center;">
+      <h1 id="date">{{ year }}年{{ month }}月{{ day }}日</h1>
+      <div id="email">{{ email }}</div>
+      <input type="button" value="ログアウト" id="logout" v-on:click="logout"></input>
+    </div>
+    <div>
+      <div id="forecast" style="text-align: center;">
+        <div id="date"></div>
+        <div id="forecat_contents">
+          <div style="float: left; margin: 10px 1%; width: 30%">
+            <h1>天気</h1>
+            <div id="weather" style="font-size: 25px;">{{ weather }}</div>
+          </div>
+          <div style="float: left; margin: 10px 1%; width: 30%;">
+            <h1>最高気温</h1>
+            <div id="highest_temperature" style="font-size: 25px;">{{ highestTemperature }}℃</div>
+          </div>
+          <div style="float: left; margin: 10px 1%; width: 30%;">
+            <h1>最低気温</h1>
+            <div id="lowest_temperature" style="font-size: 25px;">{{ lowestTemperature }}℃</div>
+          </div>
         </div>
       </div>
     </div>
-    <button v-on:click="getForecast">取得</button><br>
   </div>
-</div>
   <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-auth.js"></script>
   <script src="https://unpkg.com/vue/dist/vue.min.js"></script>

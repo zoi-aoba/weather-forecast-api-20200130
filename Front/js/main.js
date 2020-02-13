@@ -9,52 +9,54 @@ var firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-let forecast_url = "http://localhost:3000/tommorow_forecast";
-  
-function initApp() {
-  firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-      var email = user.email;
-      document.getElementById("email").innerText = email;
-    } else {
-      window.location.href = 'sign_in.html';
-    }
-  });
-}
-
-window.onload = () => {
-  initApp();
-};
-
-window.logout = () => {
-  firebase.auth().signOut();
-}
 
 new Vue({
   el: "#app",
   data: {
-    weather: "",
-    highestTemperature: "",
-    lowestTemperature: "",
-    year: "",
-    month: "",
-    day: ""
+    weather: null,
+    highestTemperature: null,
+    lowestTemperature: null,
+    year: null,
+    month: null,
+    day: null,
+    email: null,
+    forecast_url: "http://localhost:3000/tommorow_forecast",
+    weather_url: "http://localhost:3000/get_observed_weather"
+  },
+  created: function() {
+    axios.get(this.forecast_url)
+    .then((response) => {
+      this.year = response.data.data.date.substr(0, 4);
+      this.month = response.data.data.date.substr(5, 2);
+      this.day = response.data.data.date.substr(8, 2);
+      this.weather = response.data.data.weather;
+      this.highestTemperature = response.data.data.highest_temperature;
+      this.lowestTemperature = response.data.data.lowest_temperature;
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.email = user.email;
+      } else {
+        window.location.href = 'sign_in.html';
+      }
+    });
   },
   methods: {
-    getForecast: () => {
-      axios.get(forecast_url)
+    getWeather: function () {
+      axios.get(this.weather_url)
         .then((response) => {
-          document.getElementById("weather").innerText = response.data.data.weather;
-          document.getElementById("highest_temperature").innerText = response.data.data.highest_temperature;
-          document.getElementById("lowest_temperature").innerText = response.data.data.lowest_temperature;
-          document.getElementById("date").innerText = response.data.data.date;
-          this.year = response.data.data.date.substr(0, 4);
-          this.month = response.data.data.date.substr(5, 2);
-          this.day = response.data.data.date.substr(8, 2);
+          console.log(response);
         })
         .catch((error) => {
           console.log(error);
       })
+    },
+    logout: function () {
+      firebase.auth().signOut();
     }
   }
 });

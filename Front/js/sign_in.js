@@ -9,22 +9,26 @@ var firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
- 
-document.getElementById('submit').addEventListener('click', () => {
-  email = document.getElementById("email").value;
-  password = document.getElementById("password").value;
 
-  firebase.auth().signInWithEmailAndPassword(email, password)
-    .then(() => {
-      window.location.href = 'index.html';
-    })
-    .catch((error) => {
-      alert(error.message);
-      document.getElementById("password").value = "";
-    });
-})
-
-window.sign_in = () => {
-  window.location.href = 'sign_up.html';
-
-}
+new Vue({
+  el: "#app",
+  data: {
+    email: null,
+    password: null
+  },
+  methods: {
+    login: function () {
+      firebase.auth().signInWithEmailAndPassword(this.email, this.password)
+      .then(() => {
+        window.location.href = 'index.html';
+      })
+      .catch((error) => {
+        alert(error.message);
+        this.password = "";
+      });
+    },
+    signUpPage: function () {
+      window.location.href = 'sign_up.html';
+    }
+  }
+});

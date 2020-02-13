@@ -6,22 +6,25 @@
 </head>
 <body style="text-align: center">
   新規登録
+  <div id="app">
   <div>
     <div>Email</div>
-    <input id="email" type="text">
+    <input id="email" type="text" v-model="email">
   </div>
   
   <div>
     <div>パスワード</div>
-    <input id="password" type="password">
+    <input id="password" type="password" v-model="password">
   </div>
-  <input id="submit" type="submit" value="新規登録">
+  <input id="button" type="submit" value="新規登録" v-on:click="login">
   <div>
-      <button id="sign_in" onclick="sign_in()">ログイン</button>
+      <input type="button" id="sign_in" value="サインイン画面へ" v-on:click="signInPage"></input>
+  </div>
   </div>
   
 <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-auth.js"></script>
+<script src="https://unpkg.com/vue/dist/vue.min.js"></script>
 <script src="js/sign_up.js"></script>
 </body>
 </html>

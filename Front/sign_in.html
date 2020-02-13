@@ -5,23 +5,24 @@
   <title>天気予報</title>
 </head>
 <body style="text-align: center">
+  <div id="app">
   ログイン
   <div>
     <div>Email</div>
-    <input id="email" type="text">
+    <input id="email" type="text" v-model="email">
   </div>
-  
   <div>
     <div>パスワード</div>
-    <input id="password" type="password">
+    <input id="password" type="password" v-model="password">
   </div>
-  <input id="submit" type="submit" value="ログイン">
+  <input id="button" type="button" value="ログイン" v-on:click="login">
   <div>
-    <button id="sign_in" onclick="sign_up()">新規登録</button>
+    <input type="button" id="sign_in" value="新規登録画面へ" v-on:click="signUpPage"></input>
+  </div>
 </div>
-  
 <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-auth.js"></script>
+<script src="https://unpkg.com/vue/dist/vue.min.js"></script>
 <script src="js/sign_in.js"></script>
 </body>
 </html>
