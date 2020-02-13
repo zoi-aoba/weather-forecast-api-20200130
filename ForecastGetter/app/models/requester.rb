@@ -6,7 +6,7 @@ class Requester < ApplicationRecord
   @@app_id = "34ba6cc32f4168e39be785f092ef2114"
   @@location = "35.41,139.45"
 
-  def self.run
+  def self.get_forecast
     begin
       unless Forecast.exists?(date: Date.today + 1)
         api_url = "https://api.darksky.net/forecast/#{@@app_id}/#{@@location}"

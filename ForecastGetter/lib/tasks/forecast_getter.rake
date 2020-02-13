@@ -1,6 +1,6 @@
 namespace :forecast_getter do
   task run: [:environment] do
-    Requester.run
+    Requester.get_forecast
   end
 
   task past: [:environment] do
