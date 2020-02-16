@@ -3,7 +3,7 @@ class ObservedWeathersController < ApplicationController
 
   def observed_weather
     @observed_weathers = Hash.new
-    (1..30).each do |number|
+    (0..30).each do |number|
       date = Date.today - number
       weathers = ObservedWeather.find_by(date: date)
       @observed_weathers[date] = weathers if weathers

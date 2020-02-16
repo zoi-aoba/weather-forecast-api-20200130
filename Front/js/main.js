@@ -19,17 +19,17 @@ new Vue({
     year: null,
     month: null,
     day: null,
+    date: "2020-02-15",
+    observedWeathers: null,
     observedWeather: null,
     observedHighestTemperature: null,
     observedLowestTemperature: null,
-    observedYear: new Date().getFullYear(),
-    observedMonth: new Date().getMonth()+1,
-    observedDay: new Date().getDate(),
     forecastUrl: "http://localhost:3000/tommorow_forecast",
     weatherUrl: "http://localhost:3000/get_observed_weather",
     email: null,
-    observedWeathers: null
+    date: null
   },
+
   created: function() {
     axios.get(this.forecastUrl)
     .then((response) => {
@@ -47,7 +47,7 @@ new Vue({
 
     axios.get(this.weatherUrl)
       .then((response) => {
-        this.observedWeathers = JSON.stringify(response.data.data);
+        this.observedWeathers = response.data.data;
       })
       .catch((error) => {
         console.log(error);
@@ -75,6 +75,11 @@ new Vue({
     },
     logout: function () {
       firebase.auth().signOut();
+    },
+    display: function () {
+      this.observedWeather = this.observedWeathers[this.date]["weather"];
+      this.observedHighestTemperature = this.observedWeathers[this.date]["highest_temperature"];
+      this.observedLowestTemperature = this.observedWeathers[this.date]["lowest_temperature"];
     }
-  }
+  },
 });

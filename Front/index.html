@@ -31,20 +31,20 @@
       <div style="text-align: center;">
         <h1>過去の天気</h1>
         <div style="text-align: center;">
-            <h2 id="observedDate">{{ observedYear }}年{{ observedMonth }}月{{ observedDay }}日</h2>
-            <input type="date"></input>
+          <input type="date" value="2020-02-15" v-model="date"></input>
+          <input type="button" value="決定"　v-on:click="display"></input>
         </div>
         <div class="content">
           <h1>天気</h1>
-          <div id="observedWeather" class="contentText">{{ observedWeathers }}</div>
+          <div id="observedWeather" class="contentText">{{ observedWeather }}</div>
         </div>
         <div class="content">
           <h1>最高気温</h1>
-          <div id="observedHighestTemperature" class="contentText">{{  }}℃</div>
+          <div id="observedHighestTemperature" class="contentText">{{ observedHighestTemperature }}℃</div>
         </div>
         <div class="content">
           <h1>最低気温</h1>
-          <div id="observedLowestTemperature" class="contentText">{{  }}℃</div>
+          <div id="observedLowestTemperature" class="contentText">{{ observedLowestTemperature }}℃</div>
         </div>
       </div>
     </div>
