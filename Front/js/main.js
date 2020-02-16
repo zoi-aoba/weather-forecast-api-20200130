@@ -1,4 +1,4 @@
-var firebaseConfig = {
+const firebaseConfig = {
   apiKey: "AIzaSyCAj95KnxW_RhAhmHJEQP_JuG0TEviNsG8",
   authDomain: "chatapp-4f52c.firebaseapp.com",
   databaseURL: "https://chatapp-4f52c.firebaseio.com",
