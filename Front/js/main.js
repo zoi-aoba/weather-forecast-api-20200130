@@ -27,7 +27,6 @@ new Vue({
     forecastUrl: "http://localhost:3000/tommorow_forecast",
     weatherUrl: "http://localhost:3000/get_observed_weather",
     email: null,
-    date: null
   },
 
   created: function() {
@@ -41,7 +40,6 @@ new Vue({
       this.lowestTemperature = response.data.data.lowest_temperature;
     })
     .catch((error) => {
-      console.log(error);
       alert(error);
     })
 
@@ -50,7 +48,6 @@ new Vue({
         this.observedWeathers = response.data.data;
       })
       .catch((error) => {
-        console.log(error);
         alert(error);
       })
 
@@ -63,16 +60,6 @@ new Vue({
     });
   },
   methods: {
-    getWeather: function () {
-      axios.get(this.weatherUrl)
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-          alert(error);
-      })
-    },
     logout: function () {
       firebase.auth().signOut();
     },
