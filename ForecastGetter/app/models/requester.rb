@@ -30,7 +30,9 @@ class Requester < ApplicationRecord
 
   def self.get_observed_weather
     begin
+      puts "ok"
     (1..30).each do |reverse_days|
+      puts "start"
       unless ObservedWeather.exists?(date: Date.today - reverse_days)
         time = Time.parse((Date.today - reverse_days).to_s).to_i
         api_url = "https://api.darksky.net/forecast/#{@@app_id}/#{@@location},#{time}"
