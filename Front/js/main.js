@@ -19,12 +19,19 @@ new Vue({
     year: null,
     month: null,
     day: null,
+    observedWeather: null,
+    observedHighestTemperature: null,
+    observedLowestTemperature: null,
+    observedYear: new Date().getFullYear(),
+    observedMonth: new Date().getMonth()+1,
+    observedDay: new Date().getDate(),
+    forecastUrl: "http://localhost:3000/tommorow_forecast",
+    weatherUrl: "http://localhost:3000/get_observed_weather",
     email: null,
-    forecast_url: "http://localhost:3000/tommorow_forecast",
-    weather_url: "http://localhost:3000/get_observed_weather"
+    observedWeathers: null
   },
   created: function() {
-    axios.get(this.forecast_url)
+    axios.get(this.forecastUrl)
     .then((response) => {
       this.year = response.data.data.date.substr(0, 4);
       this.month = response.data.data.date.substr(5, 2);
@@ -38,6 +45,15 @@ new Vue({
       alert(error);
     })
 
+    axios.get(this.weatherUrl)
+      .then((response) => {
+        this.observedWeathers = JSON.stringify(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+        alert(error);
+      })
+
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.email = user.email;
@@ -48,7 +64,7 @@ new Vue({
   },
   methods: {
     getWeather: function () {
-      axios.get(this.weather_url)
+      axios.get(this.weatherUrl)
         .then((response) => {
           console.log(response);
         })

@@ -31,20 +31,20 @@
       <div style="text-align: center;">
         <h1>過去の天気</h1>
         <div style="text-align: center;">
-            <h2 id="date">{{ year }}年{{ month }}月{{ day }}日</h2>
+            <h2 id="observedDate">{{ observedYear }}年{{ observedMonth }}月{{ observedDay }}日</h2>
             <input type="date"></input>
         </div>
         <div class="content">
           <h1>天気</h1>
-          <div id="weather" class="contentText">{{ weather }}</div>
+          <div id="observedWeather" class="contentText">{{ observedWeathers }}</div>
         </div>
         <div class="content">
           <h1>最高気温</h1>
-          <div id="highest_temperature" class="contentText">{{ highestTemperature }}℃</div>
+          <div id="observedHighestTemperature" class="contentText">{{  }}℃</div>
         </div>
         <div class="content">
           <h1>最低気温</h1>
-          <div id="lowest_temperature" class="contentText">{{ lowestTemperature }}℃</div>
+          <div id="observedLowestTemperature" class="contentText">{{  }}℃</div>
         </div>
       </div>
     </div>
