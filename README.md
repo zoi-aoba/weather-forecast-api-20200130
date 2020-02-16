@@ -5,3 +5,20 @@
 
 ![demo](img/img.png)
 
+ForecastGetterはサーバー側のコードが入っているフォルダ、Frontはフロント側のコードが入っているフォルダです。
+
+## 起動方法
+### サーバ側
+
+```
+$ git clone git@github.com:zoi-aoba/weather-forecast-api-20200130.git
+$ cd weather-forecast-api-20200130
+$ cd ForecastGetter
+$ bundle install
+$ rails db:create
+$ rails db:migrate
+$ rails s
+```
+
+### フロント側
+ブラウザで`Front/index.html`を開く
