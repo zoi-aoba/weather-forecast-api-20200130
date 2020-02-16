@@ -1,7 +1,7 @@
 class ForecastsController < ApplicationController
   require "date"
 
-    # 認証済みのユーザーからしかAPIを叩いて欲しくない気がする
+  # 認証済みのユーザーしかAPIを叩いて欲しくない
   def tomorrow_forecast
     tomorrow = Date.today + 1
     @forecast = Forecast.find_by(date: tomorrow)
