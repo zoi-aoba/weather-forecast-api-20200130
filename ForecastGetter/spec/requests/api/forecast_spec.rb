@@ -4,6 +4,7 @@ require "time"
 
 describe "Get Forecast API", type: :request do
   FactoryBot.create(:forecast)
+
   it "Responseのstatusは200であるか" do
     get "/tommorow_forecast"
     json = JSON.parse(response.body)
