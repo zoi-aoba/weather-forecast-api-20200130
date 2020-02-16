@@ -19,7 +19,7 @@ new Vue({
     year: null,
     month: null,
     day: null,
-    date: "2020-02-15",
+    date: null,
     observedWeathers: null,
     observedWeather: null,
     observedHighestTemperature: null,
@@ -83,3 +83,11 @@ new Vue({
     }
   },
 });
+
+var min_objDate = new Date();
+min_objDate.setDate(min_objDate.getDate() - 30);
+document.getElementById("past_date").min = min_objDate.getFullYear() + "-" + String(min_objDate.getMonth() + 1) + "-" + min_objDate.getDate();
+
+var max_objDate = new Date();
+max_objDate.setDate(max_objDate.getDate() - 30);
+document.getElementById("past_date").max = max_objDate.getFullYear() + "-" + String(max_objDate.getMonth() + 1) + "-" + max_objDate.getDate();

@@ -9,7 +9,7 @@
     <div id="forecast">
 
       <div style="text-align: center;">
-        <h1 id="date">{{ year }}年{{ month }}月{{ day }}日</h1>
+        <h1 id="date">{{ year }}年{{ month }}月{{ day }}日の予報</h1>
         <div id="email">{{ email }}</div>
         <input type="button" value="ログアウト" id="logout" v-on:click="logout"></input>
       </div>
@@ -29,10 +29,10 @@
       </div>
 
       <div style="text-align: center;">
-        <h1>過去の天気</h1>
+        <h1>過去の天気(過去30日まで)</h1>
         <div style="text-align: center;">
           <input type="date" value="2020-02-15" v-model="date"></input>
-          <input type="button" value="決定"　v-on:click="display"></input>
+          <input type="button" value="決定"　v-on:click="display" id="past_date"></input>
         </div>
         <div class="content">
           <h1>天気</h1>
