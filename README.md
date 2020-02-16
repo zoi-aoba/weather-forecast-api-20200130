@@ -1,24 +1,7 @@
-# README
+# 天気予報取得アプリ
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+東京の明日の天気予報と、過去30日の実際の気象データを取得することができます。
+具体的には「天候」,「最高気温」,「最低気温」を表示します。
 
-Things you may want to cover:
+![demo](img/img.png)
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
