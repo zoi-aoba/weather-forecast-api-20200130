@@ -1,11 +1,11 @@
-namespace :forecast_getter do
+namespace :root do
   task run: [:environment] do
     Requester.get_forecast
   end
 end
 
-namespace :observed_getter do
-  task run: [:environment] do
+namespace :root do
+  task observed_weather_getter_run: [:environment] do
     Requester.get_observed_weather
   end
 end

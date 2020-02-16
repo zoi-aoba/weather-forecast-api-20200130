@@ -89,5 +89,5 @@ min_objDate.setDate(min_objDate.getDate() - 30);
 document.getElementById("past_date").min = min_objDate.getFullYear() + "-" + String(min_objDate.getMonth() + 1) + "-" + min_objDate.getDate();
 
 var max_objDate = new Date();
-max_objDate.setDate(max_objDate.getDate() - 30);
+max_objDate.setDate(max_objDate.getDate() - 1);
 document.getElementById("past_date").max = max_objDate.getFullYear() + "-" + String(max_objDate.getMonth() + 1) + "-" + max_objDate.getDate();
