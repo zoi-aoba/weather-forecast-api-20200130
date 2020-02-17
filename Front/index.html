@@ -3,50 +3,51 @@
   <head>
     <title>天気予報</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" type="text/css" href="style/styles.css" />
+    <link rel="stylesheet" type="text/css" href="style/styles.css"/>
   </head>
   <body>
-    <div id="forecast">
+    <div id="app">
 
       <div style="text-align: center;">
-        <h1 id="date">{{ year }}年{{ month }}月{{ day }}日の予報</h1>
-        <div id="email">{{ email }}</div>
-        <input type="button" value="ログアウト" id="logout" v-on:click="logout"></input>
+        <h1 v-cloak>{{ year }}年{{ month }}月{{ day }}日の予報</h1>
+        <div v-cloak>{{ email }}</div>
+        <input type="button" value="ログアウト" v-on:click="logout"></input>
       </div>
       <div style="text-align: center;">
           <div class="content">
             <h1>天気</h1>
-            <div id="weather" class="contentText">{{ weather }}</div>
+            <div class="contentText" v-cloak>{{ weather }}</div>
           </div>
           <div class="content">
             <h1>最高気温</h1>
-            <div id="highest_temperature" class="contentText">{{ highestTemperature }}℃</div>
+            <div class="contentText" v-cloak>{{ highestTemperature }}℃</div>
           </div>
           <div class="content">
             <h1>最低気温</h1>
-            <div id="lowest_temperature" class="contentText">{{ lowestTemperature }}℃</div>
+            <div class="contentText" v-cloak>{{ lowestTemperature }}℃</div>
           </div>
       </div>
 
       <div style="text-align: center;">
         <h1>過去の天気(過去30日まで)</h1>
         <div style="text-align: center;">
-          <input type="date" value="2020-02-15" v-model="date"></input>
-          <input type="button" value="決定"　v-on:click="display" id="past_date"></input>
+          <input type="date" value="2020-02-15" v-model="observedDate"></input>
+          <input type="button" value="決定"　v-on:click="display"></input>
         </div>
         <div class="content">
           <h1>天気</h1>
-          <div id="observedWeather" class="contentText">{{ observedWeather }}</div>
+          <div class="contentText" v-cloak>{{ observedWeather }}</div>
         </div>
         <div class="content">
           <h1>最高気温</h1>
-          <div id="observedHighestTemperature" class="contentText">{{ observedHighestTemperature }}℃</div>
+          <div class="contentText" v-cloak>{{ observedHighestTemperature }}℃</div>
         </div>
         <div class="content">
           <h1>最低気温</h1>
-          <div id="observedLowestTemperature" class="contentText">{{ observedLowestTemperature }}℃</div>
+          <div class="contentText" v-cloak>{{ observedLowestTemperature }}℃</div>
         </div>
       </div>
+
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-app.js"></script>

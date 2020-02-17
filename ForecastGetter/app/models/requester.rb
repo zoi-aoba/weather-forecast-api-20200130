@@ -3,20 +3,25 @@ class Requester < ApplicationRecord
   require "json"
   require "date"
 
-  @@app_id = "34ba6cc32f4168e39be785f092ef2114"
-  @@location = "35.41,139.45"
+  @@app_id = "/34ba6cc32f4168e39be785f092ef211"
+  @@location = "/35.41,139.45"
+  @@api_url = "https://api.darksky.net/forecast"
 
   def self.get_forecast
     begin
       unless Forecast.exists?(date: Date.today + 1)
-        api_url = "https://api.darksky.net/forecast/#{@@app_id}/#{@@location}"
-        response = HTTPClient.get(api_url)
-        raise "The Response status is not 200" unless response.status == 200
-        response = JSON.parse(response.body)["daily"]["data"][1]
-        date = Time.at(response["time"]).to_s.split(" ").first
-        weather = response["icon"]
-        highest_temperature = convert_to_celsius(response["temperatureHigh"])
-        lowest_temperature = convert_to_celsius(response["temperatureLow"])
+        response = HTTPClient.get(@@api_url + @@app_id + @@location)
+        unless response.status == 200
+          raise "The Response status is #{response.status}" 
+        end
+        # unless response.body.has_key?("latitude")
+        #   raise "The Response status is invalid"
+        # end
+        formatted_response = format_forecast_response(response)
+        date = Time.at(formatted_response["time"]).to_s.split(" ").first
+        weather = formatted_response["icon"]
+        highest_temperature = convert_to_celsius(formatted_response["temperatureHigh"])
+        lowest_temperature = convert_to_celsius(formatted_response["temperatureLow"])
 
         forecast = Forecast.create(date: date, weather: weather, highest_temperature: highest_temperature, lowest_temperature: lowest_temperature)
         Requester.create(success: true, forecast_id: forecast.id)
@@ -35,12 +40,14 @@ class Requester < ApplicationRecord
         time = Time.parse((Date.today - reverse_days).to_s).to_i
         api_url = "https://api.darksky.net/forecast/#{@@app_id}/#{@@location},#{time}"
         response = HTTPClient.get(api_url)
-        raise "The Response status is not 200" unless response.status == 200
-        response = JSON.parse(response.body)["daily"]["data"].first
-        date = Time.at(response["time"]).to_s.split(" ").first
-        weather = response["icon"]
-        highest_temperature = convert_to_celsius(response["temperatureHigh"])
-        lowest_temperature = convert_to_celsius(response["temperatureLow"])
+        unless response.status == 200
+          raise "The Response status is #{response.status}" 
+        end
+        formatted_response = format_observed_weather_response(response)
+        date = Time.at(formatted_response["time"]).to_s.split(" ").first
+        weather = formatted_response["icon"]
+        highest_temperature = convert_to_celsius(formatted_response["temperatureHigh"])
+        lowest_temperature = convert_to_celsius(formatted_response["temperatureLow"])
       
         observed_weather = ObservedWeather.create(date: date, weather: weather, highest_temperature: highest_temperature, lowest_temperature: lowest_temperature)
         Requester.create(success: true, observed_weather_id: observed_weather.id)
@@ -56,5 +63,13 @@ class Requester < ApplicationRecord
   private
   def self.convert_to_celsius(temperature)
     ((temperature - 32) / 1.8).round(1)
+  end
+
+  def format_forecast_response(response)
+    JSON.parse(response.body)["daily"]["data"].first
+  end
+
+  def format_observed_weather_response(response)
+    JSON.parse(response.body)["daily"]["data"].first
   end
 end

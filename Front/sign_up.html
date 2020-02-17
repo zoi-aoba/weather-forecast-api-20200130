@@ -9,16 +9,16 @@
   <div id="app">
   <div>
     <div>Email</div>
-    <input id="email" type="text" v-model="email">
+    <input type="text" v-model="email">
   </div>
   
   <div>
     <div>パスワード</div>
-    <input id="password" type="password" v-model="password">
+    <input type="password" v-model="password">
   </div>
-  <input id="button" type="submit" value="新規登録" v-on:click="login">
+  <input type="submit" value="新規登録" v-on:click="login">
   <div>
-      <input type="button" id="sign_in" value="サインイン画面へ" v-on:click="signInPage"></input>
+      <input type="button" value="サインイン画面へ" v-on:click="signInPage"></input>
   </div>
   </div>
   

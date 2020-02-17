@@ -9,15 +9,15 @@
   ログイン
   <div>
     <div>Email</div>
-    <input id="email" type="text" v-model="email">
+    <input type="text" v-model="email">
   </div>
   <div>
     <div>パスワード</div>
-    <input id="password" type="password" v-model="password">
+    <input type="password" v-model="password">
   </div>
-  <input id="button" type="button" value="ログイン" v-on:click="login">
+  <input type="button" value="ログイン" v-on:click="login">
   <div>
-    <input type="button" id="sign_in" value="新規登録画面へ" v-on:click="signUpPage"></input>
+    <input type="button" value="新規登録画面へ" v-on:click="signUpPage"></input>
   </div>
 </div>
 <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-app.js"></script>

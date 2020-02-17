@@ -11,7 +11,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 new Vue({
-  el: "#forecast",
+  el: "#app",
   data: {
     weather: null,
     highestTemperature: null,
@@ -19,7 +19,7 @@ new Vue({
     year: null,
     month: null,
     day: null,
-    date: null,
+    observedDate: null,
     observedWeathers: null,
     observedWeather: null,
     observedHighestTemperature: null,
@@ -31,24 +31,26 @@ new Vue({
 
   created: function() {
     axios.get(this.forecastUrl)
-    .then((response) => {
-      this.year = response.data.data.date.substr(0, 4);
-      this.month = response.data.data.date.substr(5, 2);
-      this.day = response.data.data.date.substr(8, 2);
-      this.weather = response.data.data.weather;
-      this.highestTemperature = response.data.data.highest_temperature;
-      this.lowestTemperature = response.data.data.lowest_temperature;
+      .then((response) => {
+      date = response.data.forecast.date
+      this.year = date.substr(0, 4);
+      this.month = date.substr(5, 2);
+      this.day = date.substr(8, 2);
+      forecast = response.data.forecast
+      this.weather = forecast.weather;
+      this.highestTemperature = forecast.highest_temperature;
+      this.lowestTemperature = forecast.lowest_temperature;
     })
     .catch((error) => {
-      alert(error);
+      alert(error.message);
     })
 
     axios.get(this.weatherUrl)
       .then((response) => {
-        this.observedWeathers = response.data.data;
+        this.observedWeathers = response.data.observed_weathers;
       })
       .catch((error) => {
-        alert(error);
+        alert(error.message);
       })
 
     firebase.auth().onAuthStateChanged((user) => {
@@ -59,22 +61,15 @@ new Vue({
       }
     });
   },
+
   methods: {
     logout: function () {
       firebase.auth().signOut();
     },
     display: function () {
-      this.observedWeather = this.observedWeathers[this.date]["weather"];
-      this.observedHighestTemperature = this.observedWeathers[this.date]["highest_temperature"];
-      this.observedLowestTemperature = this.observedWeathers[this.date]["lowest_temperature"];
+      this.observedWeather = this.observedWeathers[this.observedDate]["weather"];
+      this.observedHighestTemperature = this.observedWeathers[this.observedDate]["highest_temperature"];
+      this.observedLowestTemperature = this.observedWeathers[this.observedDate]["lowest_temperature"];
     }
-  },
+  }
 });
-
-var min_objDate = new Date();
-min_objDate.setDate(min_objDate.getDate() - 30);
-document.getElementById("past_date").min = min_objDate.getFullYear() + "-" + String(min_objDate.getMonth() + 1) + "-" + min_objDate.getDate();
-
-var max_objDate = new Date();
-max_objDate.setDate(max_objDate.getDate() - 1);
-document.getElementById("past_date").max = max_objDate.getFullYear() + "-" + String(max_objDate.getMonth() + 1) + "-" + max_objDate.getDate();

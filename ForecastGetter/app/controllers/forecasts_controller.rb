@@ -1,10 +1,12 @@
 class ForecastsController < ApplicationController
   require "date"
 
-  # 認証済みのユーザーしかAPIを叩いて欲しくない
-  def tomorrow_forecast
-    tomorrow = Date.today + 1
-    @forecast = Forecast.find_by(date: tomorrow)
-    render json: { status: 'SUCCESS', data: @forecast }
+  def get_tomorrow_forecast
+    @forecast = Forecast.find_by(date: Date.today + 1)
+    if @forecast
+      render json: { status: "success", forecast: @forecast }
+    else
+      render json: { status: "error"}
+    end
   end
 end
