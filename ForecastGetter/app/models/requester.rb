@@ -3,7 +3,7 @@ class Requester < ApplicationRecord
   require "json"
   require "date"
 
-  @@app_id = "/34ba6cc32f4168e39be785f092ef211"
+  @@app_id = "/34ba6cc32f4168e39be785f092ef2114"
   @@location = "/35.41,139.45"
   @@api_url = "https://api.darksky.net/forecast"
 
@@ -14,9 +14,9 @@ class Requester < ApplicationRecord
         unless response.status == 200
           raise "The Response status is #{response.status}" 
         end
-        # unless response.body.has_key?("latitude")
-        #   raise "The Response status is invalid"
-        # end
+        unless JSON.parse(response.body).has_key?("latitude")
+          raise "The Response status is invalid"
+        end
         formatted_response = format_forecast_response(response)
         date = Time.at(formatted_response["time"]).to_s.split(" ").first
         weather = formatted_response["icon"]
@@ -37,11 +37,13 @@ class Requester < ApplicationRecord
     begin
     (0..30).each do |reverse_days|
       unless ObservedWeather.exists?(date: Date.today - reverse_days)
-        time = Time.parse((Date.today - reverse_days).to_s).to_i
-        api_url = "https://api.darksky.net/forecast/#{@@app_id}/#{@@location},#{time}"
-        response = HTTPClient.get(api_url)
+        time = "," + Time.parse((Date.today - reverse_days).to_s).to_i.to_s
+        response = HTTPClient.get(@@api_url + @@app_id + @@location + time)
         unless response.status == 200
           raise "The Response status is #{response.status}" 
+        end
+        unless JSON.parse(response.body).has_key?("latitude")
+          raise "The Response status is invalid"
         end
         formatted_response = format_observed_weather_response(response)
         date = Time.at(formatted_response["time"]).to_s.split(" ").first
@@ -65,11 +67,11 @@ class Requester < ApplicationRecord
     ((temperature - 32) / 1.8).round(1)
   end
 
-  def format_forecast_response(response)
+  def self.format_forecast_response(response)
     JSON.parse(response.body)["daily"]["data"].first
   end
 
-  def format_observed_weather_response(response)
+  def self.format_observed_weather_response(response)
     JSON.parse(response.body)["daily"]["data"].first
   end
 end
