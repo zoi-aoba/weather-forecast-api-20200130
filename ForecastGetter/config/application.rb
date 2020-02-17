@@ -32,6 +32,9 @@ module ForecastGetter
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
+    config.active_record.default_timezone = :local
+    config.time_zone = 'Tokyo'
+
     config.generators do |g|
       # 色々な記述があるので、一番下に追記する
       g.test_framework :rspec,
