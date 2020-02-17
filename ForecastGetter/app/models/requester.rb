@@ -18,7 +18,6 @@ class Requester < ApplicationRecord
           raise "The Response status is invalid"
         end
         formatted_response = format_forecast_response(response)
-        # ここの修正が必要
         date = Time.at(formatted_response["time"]).to_s.split(" ").first
         weather = formatted_response["icon"]
         highest_temperature = convert_to_celsius(formatted_response["temperatureHigh"])
@@ -70,7 +69,7 @@ class Requester < ApplicationRecord
   end
 
   def self.format_forecast_response(response)
-    JSON.parse(response.body)["daily"]["data"].first
+    JSON.parse(response.body)["daily"]["data"][1]
   end
 
   def self.format_observed_weather_response(response)
