@@ -36,7 +36,6 @@ module ForecastGetter
     config.time_zone = 'Tokyo'
 
     config.generators do |g|
-      # 色々な記述があるので、一番下に追記する
       g.test_framework :rspec,
                        fixtures: true,
                        view_specs: false,

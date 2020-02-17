@@ -9,9 +9,7 @@ class Requester < ApplicationRecord
 
   def self.get_forecast
     begin
-      # おかしい
       unless Forecast.exists?(date: Date.today + 1)
-        puts Date.today + 1
         response = HTTPClient.get(@@api_url + @@app_id + @@location)
         unless response.status == 200
           raise "The Response status is #{response.status}"
@@ -20,7 +18,7 @@ class Requester < ApplicationRecord
           raise "The Response status is invalid"
         end
         formatted_response = format_forecast_response(response)
-        # 日本時間に変更する
+        # ここの修正が必要
         date = Time.at(formatted_response["time"]).to_s.split(" ").first
         weather = formatted_response["icon"]
         highest_temperature = convert_to_celsius(formatted_response["temperatureHigh"])
@@ -49,6 +47,7 @@ class Requester < ApplicationRecord
           raise "The Response status is invalid"
         end
         formatted_response = format_observed_weather_response(response)
+        # ここの修正が必要
         date = Time.at(formatted_response["time"]).to_s.split(" ").first
         weather = formatted_response["icon"]
         highest_temperature = convert_to_celsius(formatted_response["temperatureHigh"])
