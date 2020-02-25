@@ -3,7 +3,7 @@ class ObservedWeathersController < ApplicationController
 
   def render_observed_weather
     observed_weathers = {}
-    (Date.today..Date.today - 30).each do |date|
+    ((Date.today - 30)..Date.today).each do |date|
       weathers = ObservedWeather.find_by(date: date)
       observed_weathers[date] = weathers if weathers
     end
