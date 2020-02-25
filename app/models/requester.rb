@@ -62,11 +62,6 @@ class Requester < ApplicationRecord
   end
 
   def self.check_response(response)
-    unless response.status == 200
-      raise "The Response status is #{response.status}"
-    end
-    unless JSON.parse(response.body).key?('latitude')
-      raise 'The Response is invalid'
-    end
+    raise "The Response status is #{response.status}" unless response.status == 200
   end
 end

@@ -2,8 +2,7 @@ require 'rails_helper'
 require 'date'
 
 describe 'Get Observed Weatehr API', type: :request do
-  (1..30).each do |number|
-    date = Date.today - number
+  ((Date.today - 30)..Date.today).each do |date|
     FactoryBot.create(:observed_weather, date: date)
   end
 
@@ -16,7 +15,7 @@ describe 'Get Observed Weatehr API', type: :request do
     get '/get_observed_weather'
     json = JSON.parse(response.body)['observed_weathers']
     expect(json).not_to eq nil
-    expect(json[Time.parse((Date.today - 1).to_s).to_s.split(' ').first]).not_to eq nil
+    expect(json[Time.parse((Date.today).to_s).to_s.split(' ').first]).not_to eq nil
     expect(json[Time.parse((Date.today - 30).to_s).to_s.split(' ').first]).not_to eq nil
     expect(json[Time.parse((Date.today - 30).to_s).to_s.split(' ').first]['weather']).not_to eq nil
     expect(json[Time.parse((Date.today - 30).to_s).to_s.split(' ').first]['lowest_temperature']).not_to eq nil

@@ -5,6 +5,7 @@ class ObservedWeather < ApplicationRecord
   validates :date, presence: true
 
   def self.format_data(response)
+    raise 'The Response is invalid' unless JSON.parse(response.body).key?('latitude')
     formatted_response = JSON.parse(response.body)['daily']['data'].first
     weather = {}
     weather['date'] = Time.at(formatted_response['time']).to_s.split(' ').first
