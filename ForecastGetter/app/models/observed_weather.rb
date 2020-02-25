@@ -5,7 +5,7 @@ class ObservedWeather < ApplicationRecord
   validates :date, presence: true
 
   def self.format_data(response)
-    formatted_response = format_observed_weather_response(response)
+    formatted_response = JSON.parse(response.body)["daily"]["data"].first
     weather = {}
     weather['date'] = Time.at(formatted_response['time']).to_s.split(' ').first
     weather['weather'] = formatted_response['icon']

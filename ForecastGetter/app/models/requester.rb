@@ -26,9 +26,9 @@ class Requester < ApplicationRecord
   end
 
   def self.fetch_observed_weather
-    (Date.today..Date.today - 30).each do |past_day|
+    ((Date.today - 30)..Date.today).each do |past_day|
       unless ObservedWeather.exists?(date: past_day)
-        response = HTTPClient.get(make_observed_weather_url(API_URL, LOCATION))
+        response = HTTPClient.get(make_observed_weather_url(API_URL, LOCATION, past_day))
         check_response(response)
         weather = ObservedWeather.format_data(response)
         ActiveRecord::Base.transaction do
@@ -56,8 +56,8 @@ class Requester < ApplicationRecord
     api_url + Rails.application.credentials.aws[:app_id] + location
   end
 
-  def self.make_observed_weather_url(api_url, location)
-    time = ',' + Time.parse((Date.today - past_day).to_s).to_i.to_s
+  def self.make_observed_weather_url(api_url, location, past_day)
+    time = ',' + Time.parse(past_day.to_s).to_i.to_s
     api_url + Rails.application.credentials.aws[:app_id] + location + time
   end
 

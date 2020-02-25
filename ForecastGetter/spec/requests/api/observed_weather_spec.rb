@@ -1,27 +1,25 @@
 require 'rails_helper'
-require "date"
+require 'date'
 
-describe "Get Observed Weatehr API", type: :request do
-
+describe 'Get Observed Weatehr API', type: :request do
   (1..30).each do |number|
     date = Date.today - number
     FactoryBot.create(:observed_weather, date: date)
   end
 
-  it "Responseのstatusは200であるか" do
-    get "/get_observed_weather"
-    json = JSON.parse(response.body)
+  it 'Responseのstatusは200であるか' do
+    get '/get_observed_weather'
     expect(response.status).to eq(200)
   end
 
-  it "Responseで取得したい情報は正しく返ってきているか" do
-    get "/get_observed_weather"
-    json = JSON.parse(response.body)
-    expect(json['observed_weathers']).not_to eq nil
-    expect(json['observed_weathers'][Time.parse((Date.today - 1).to_s).to_s.split(" ").first]).not_to eq nil
-    expect(json['observed_weathers'][Time.parse((Date.today - 30).to_s).to_s.split(" ").first]).not_to eq nil
-    expect(json['observed_weathers'][Time.parse((Date.today - 30).to_s).to_s.split(" ").first]["weather"]).not_to eq nil
-    expect(json['observed_weathers'][Time.parse((Date.today - 30).to_s).to_s.split(" ").first]["lowest_temperature"]).not_to eq nil
-    expect(json['observed_weathers'][Time.parse((Date.today - 30).to_s).to_s.split(" ").first]["highest_temperature"]).not_to eq nil
+  it 'Responseで取得したい情報は正しく返ってきているか' do
+    get '/get_observed_weather'
+    json = JSON.parse(response.body)['observed_weathers']
+    expect(json).not_to eq nil
+    expect(json[Time.parse((Date.today - 1).to_s).to_s.split(' ').first]).not_to eq nil
+    expect(json[Time.parse((Date.today - 30).to_s).to_s.split(' ').first]).not_to eq nil
+    expect(json[Time.parse((Date.today - 30).to_s).to_s.split(' ').first]['weather']).not_to eq nil
+    expect(json[Time.parse((Date.today - 30).to_s).to_s.split(' ').first]['lowest_temperature']).not_to eq nil
+    expect(json[Time.parse((Date.today - 30).to_s).to_s.split(' ').first]['highest_temperature']).not_to eq nil
   end
 end
