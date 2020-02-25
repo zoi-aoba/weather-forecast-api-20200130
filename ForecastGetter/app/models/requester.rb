@@ -22,10 +22,7 @@ class Requester < ApplicationRecord
       Requester.create(success: true)
     end
     rescue => exception
-      Requester.create(success: false,
-                       name: exception.class,
-                       message: exception.message,
-                       backtrace: exception.backtrace)
+      Requester.create(success: false, name: exception.class, message: exception.message, backtrace: exception.backtrace)
   end
 
   def self.fetch_observed_weather
@@ -46,10 +43,7 @@ class Requester < ApplicationRecord
       end
     end
     rescue => exception
-      Requester.create(success: false,
-                       name: exception.class,
-                       message: exception.message,
-                       backtrace: exception.backtrace)
+      Requester.create(success: false, name: exception.class, message: exception.message, backtrace: exception.backtrace)
   end
 
   private
