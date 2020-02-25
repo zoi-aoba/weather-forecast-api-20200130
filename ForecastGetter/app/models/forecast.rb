@@ -9,12 +9,12 @@ class Forecast < ApplicationRecord
     forecast = {}
     forecast['date'] = Time.at(formatted_response['time']).to_s.split(' ').first
     forecast['weather'] = formatted_response['icon']
-    forecast['highest_temperature'] = convert_to_celsius(formatted_response['temperatureHigh'])
-    forecast['lowest_temperature'] = convert_to_celsius(formatted_response['temperatureLow'])
+    forecast['highest_temperature'] = convert_celsius(formatted_response['temperatureHigh'])
+    forecast['lowest_temperature'] = convert_celsius(formatted_response['temperatureLow'])
     forecast
   end
 
-  def self.convert_to_celsius(temperature)
+  def self.convert_celsius(temperature)
     ((temperature - 32) / 1.8).round(1)
   end
 end
