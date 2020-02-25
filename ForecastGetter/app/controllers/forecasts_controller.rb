@@ -1,12 +1,12 @@
 class ForecastsController < ApplicationController
-  require "date"
+  require 'date'
 
-  def get_tomorrow_forecast
-    @forecast = Forecast.find_by(date: Date.today + 1)
+  def render_tomorrow_forecast
+    @forecast = Forecast.find_by(date: Date.tomorrow)
     if @forecast
-      render json: { status: "success", forecast: @forecast }
+      render json: { status: 'success', forecast: @forecast }
     else
-      render json: { status: "error"}
+      render json: { status: 'error' }
     end
   end
 end

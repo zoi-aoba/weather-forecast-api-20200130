@@ -3,4 +3,18 @@ class Forecast < ApplicationRecord
   validates :lowest_temperature, presence: true, numericality: true
   validates :weather, presence: true
   validates :date, presence: true
+
+  def self.format_data(response)
+    formatted_response = JSON.parse(response.body)['daily']['data'][1]
+    forecast = {}
+    forecast['date'] = Time.at(formatted_response['time']).to_s.split(' ').first
+    forecast['weather'] = formatted_response['icon']
+    forecast['highest_temperature'] = convert_to_celsius(formatted_response['temperatureHigh'])
+    forecast['lowest_temperature'] = convert_to_celsius(formatted_response['temperatureLow'])
+    forecast
+  end
+
+  def self.convert_to_celsius(temperature)
+    ((temperature - 32) / 1.8).round(1)
+  end
 end

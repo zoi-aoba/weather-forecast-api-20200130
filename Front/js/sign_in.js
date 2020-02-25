@@ -19,7 +19,8 @@ new Vue({
   methods: {
     login: function () {
       firebase.auth().signInWithEmailAndPassword(this.email, this.password)
-      .then(() => {
+        .then((a) => {
+          console.log(a);
         window.location.href = 'index.html';
       })
       .catch((error) => {

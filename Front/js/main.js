@@ -10,6 +10,9 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
+const forecastUrl = "http://localhost:3000/tommorow_forecast";
+const weatherUrl = "http://localhost:3000/get_observed_weather";
+
 new Vue({
   el: "#app",
   data: {
@@ -24,13 +27,11 @@ new Vue({
     observedWeather: null,
     observedHighestTemperature: null,
     observedLowestTemperature: null,
-    forecastUrl: "http://localhost:3000/tommorow_forecast",
-    weatherUrl: "http://localhost:3000/get_observed_weather",
     email: null,
   },
 
   created: function() {
-    axios.get(this.forecastUrl)
+    axios.get(forecastUrl)
       .then((response) => {
       date = response.data.forecast.date
       this.year = date.substr(0, 4);
@@ -45,7 +46,7 @@ new Vue({
       alert(error.message);
     })
 
-    axios.get(this.weatherUrl)
+    axios.get(weatherUrl)
       .then((response) => {
         this.observedWeathers = response.data.observed_weathers;
       })
