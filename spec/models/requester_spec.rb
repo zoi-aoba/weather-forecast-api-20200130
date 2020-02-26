@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'httpclient'
 
 RSpec.describe Requester, type: :model do
-  describe 'get_data' do
+  describe '#get_data' do
     it '正しくHTTPリクエストができているか' do
       url = 'https://qiita.com/'
       response = Requester.get_data(url)
@@ -10,17 +10,7 @@ RSpec.describe Requester, type: :model do
     end
   end
 
-  describe 'make_forecast_url' do
-    it '正しくURLが作成できているか' do
-    end
-  end
-
-  describe 'make_observed_weather_url' do
-    it '正しくURLが作成できているか' do
-    end
-  end
-
-  describe 'check_response' do
+  describe '#check_response' do
     it 'Responseが200以外の時例外を出せるか' do
       url = 'https://test.com'
       response = HTTPClient.get(url)
