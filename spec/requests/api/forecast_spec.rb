@@ -13,7 +13,7 @@ describe 'Get Forecast API', type: :request do
   context 'Responseで取得したい情報は正しく返ってきているか' do
     let(:json) do
       get '/tommorow_forecast'
-      json = JSON.parse(response.body)['forecast']
+      JSON.parse(response.body)['forecast']
     end
 
     it '天気予報は取得できているか' do

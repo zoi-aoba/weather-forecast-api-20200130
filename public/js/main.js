@@ -1,17 +1,16 @@
-const firebaseConfig = {
-  apiKey: "AIzaSyCAj95KnxW_RhAhmHJEQP_JuG0TEviNsG8",
-  authDomain: "chatapp-4f52c.firebaseapp.com",
-  databaseURL: "https://chatapp-4f52c.firebaseio.com",
-  projectId: "chatapp-4f52c",
-  storageBucket: "chatapp-4f52c.appspot.com",
-  messagingSenderId: "605379077010",
-  appId: "1:605379077010:web:9f67306fd37f96d4bdd74b"
-};
-
+import { firebaseConfig } from './firebase.js';
 firebase.initializeApp(firebaseConfig);
 
 const forecastUrl = "http://localhost:3000/tommorow_forecast";
 const weatherUrl = "http://localhost:3000/get_observed_weather";
+
+var yesterday = new Date();
+yesterday.setDate(yesterday.getDate()-1);
+document.getElementById("date").max = yesterday.getFullYear() + '-' + ("0"+(yesterday.getMonth()+1)).slice(-2) + '-' + ("0"+yesterday.getDate()).slice(-2);
+
+var min = new Date();
+min.setDate(min.getDate()-30);
+document.getElementById("date").min = min.getFullYear() + '-' + ("0"+(min.getMonth()+1)).slice(-2) + '-' + ("0"+min.getDate()).slice(-2);
 
 new Vue({
   el: "#app",
@@ -33,17 +32,17 @@ new Vue({
   created: function() {
     axios.get(forecastUrl)
       .then((response) => {
-      date = response.data.forecast.date
-      this.year = date.substr(0, 4);
-      this.month = date.substr(5, 2);
-      this.day = date.substr(8, 2);
-      forecast = response.data.forecast
-      this.weather = forecast.weather;
-      this.highestTemperature = forecast.highest_temperature;
-      this.lowestTemperature = forecast.lowest_temperature;
+        let date = response.data.forecast.date
+        this.year = date.substr(0, 4);
+        this.month = date.substr(5, 2);
+        this.day = date.substr(8, 2);
+        let forecast = response.data.forecast
+        this.weather = forecast.weather;
+        this.highestTemperature = forecast.highest_temperature;
+        this.lowestTemperature = forecast.lowest_temperature;
     })
-    .catch((error) => {
-      alert(error.message);
+      .catch((error) => {
+        alert(error.message);
     })
 
     axios.get(weatherUrl)
